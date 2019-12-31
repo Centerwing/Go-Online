@@ -1,0 +1,13 @@
+from chess_engine.chess_classes.simple_ai.cores.defs import *
+
+UNIT_SCORE = -6000
+DANGEROUS_LIMIT = 1
+
+def judge(data, x, y):
+    data.set(x, y, data.current)
+
+    doors = data.get_weak_doors(x, y)
+    if len(doors) <= DANGEROUS_LIMIT:
+        return UNIT_SCORE
+
+    return 0

@@ -1,0 +1,113 @@
+{% load static %}
+<td bgColor="#{{ bgcolor }}">
+
+{% with cells_folder="/static/chess_engine/pieces/"|add:user_pieces.folder_name %}
+{% if cell == '-' %}
+    {% if game_data.token.step.name == 'waitCellSource' and user_can_play %}
+        <a id="{{ l_key }}_{{ c_key }}" href="{% url 'piece-action' pk=game.id action='move' line=l_key column=c_key %}">
+        {% if l_key == 19 %}
+            {% if c_key == 'a' %}
+            <img src="{{ cells_folder }}/empty_cell_c1.png" />
+            {% elif c_key == 's' %}
+            <img src="{{ cells_folder }}/empty_cell_c2.png" />
+            {% else %}
+            <img src="{{ cells_folder }}/empty_cell_s1.png" />
+            {% endif %}
+        {% elif l_key == 1 %}
+            {% if c_key == 'a' %}
+            <img src="{{ cells_folder }}/empty_cell_c4.png" />
+            {% elif c_key == 's' %}
+            <img src="{{ cells_folder }}/empty_cell_c3.png" />
+            {% else %}
+            <img src="{{ cells_folder }}/empty_cell_s3.png" />
+            {% endif %}
+        {% else %}
+            {% if c_key == 'a' %}
+            <img src="{{ cells_folder }}/empty_cell_s4.png" />
+            {% elif c_key == 's' %}
+            <img src="{{ cells_folder }}/empty_cell_s2.png" />
+            {% elif c_key == 'd' or c_key == 'p' %}
+                {% if l_key == 16 or l_key == 4  %}
+                <img src="{{ cells_folder }}/empty_cell_k.png" />
+                {% else %}
+                <img src="{{ cells_folder }}/empty_cell.png" />
+                {% endif %}
+            {% elif c_key == 'j' %}
+                {% if l_key == 10 %}
+                <img src="{{ cells_folder }}/empty_cell_k.png" />
+                {% else %}
+                <img src="{{ cells_folder }}/empty_cell.png" />
+                {% endif %}
+            {% else %}
+            <img src="{{ cells_folder }}/empty_cell.png" />
+            {% endif %}
+        {% endif %}
+        </a>
+    {% else %}
+        {% if l_key == 19 %}
+            {% if c_key == 'a' %}
+            <img src="{{ cells_folder }}/empty_cell_c1.png" />
+            {% elif c_key == 's' %}
+            <img src="{{ cells_folder }}/empty_cell_c2.png" />
+            {% else %}
+            <img src="{{ cells_folder }}/empty_cell_s1.png" />
+            {% endif %}
+        {% elif l_key == 1 %}
+            {% if c_key == 'a' %}
+            <img src="{{ cells_folder }}/empty_cell_c4.png" />
+            {% elif c_key == 's' %}
+            <img src="{{ cells_folder }}/empty_cell_c3.png" />
+            {% else %}
+            <img src="{{ cells_folder }}/empty_cell_s3.png" />
+            {% endif %}
+        {% else %}
+            {% if c_key == 'a' %}
+            <img src="{{ cells_folder }}/empty_cell_s4.png" />
+            {% elif c_key == 's' %}
+            <img src="{{ cells_folder }}/empty_cell_s2.png" />
+            {% elif c_key == 'd' or c_key == 'p' %}
+                {% if l_key == 16 or l_key == 4  %}
+                <img src="{{ cells_folder }}/empty_cell_k.png" />
+                {% else %}
+                <img src="{{ cells_folder }}/empty_cell.png" />
+                {% endif %}
+            {% elif c_key == 'j' %}
+                {% if l_key == 10 %}
+                <img src="{{ cells_folder }}/empty_cell_k.png" />
+                {% else %}
+                <img src="{{ cells_folder }}/empty_cell.png" />
+                {% endif %}
+            {% else %}
+            <img src="{{ cells_folder }}/empty_cell.png" />
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% else %}
+    {% if l_key == 19 %}
+        {% if c_key == 'a' %}
+            <img src="{{ cells_folder }}/{{ cell.side.name|slice:'0:1' }}_pawn_c1.png" />
+        {% elif c_key == 's' %}
+            <img src="{{ cells_folder }}/{{ cell.side.name|slice:'0:1' }}_pawn_c2.png" />
+        {% else %}
+            <img src="{{ cells_folder }}/{{ cell.side.name|slice:'0:1' }}_pawn_s1.png" />
+        {% endif %}
+    {% elif l_key == 1 %}
+        {% if c_key == 'a' %}
+            <img src="{{ cells_folder }}/{{ cell.side.name|slice:'0:1' }}_pawn_c4.png" />
+        {% elif c_key == 's' %}
+            <img src="{{ cells_folder }}/{{ cell.side.name|slice:'0:1' }}_pawn_c3.png" />
+        {% else %}
+            <img src="{{ cells_folder }}/{{ cell.side.name|slice:'0:1' }}_pawn_s3.png" />
+        {% endif %}
+    {% else %}
+        {% if c_key == 'a' %}
+            <img src="{{ cells_folder }}/{{ cell.side.name|slice:'0:1' }}_pawn_s4.png" />
+        {% elif c_key == 's' %}
+            <img src="{{ cells_folder }}/{{ cell.side.name|slice:'0:1' }}_pawn_s2.png" />
+        {% else %}
+            <img src="{{ cells_folder }}/{{ cell.side.name|slice:'0:1' }}_pawn.png" />
+        {% endif %}
+    {% endif %}
+{% endif %}
+{% endwith %}
+</td>

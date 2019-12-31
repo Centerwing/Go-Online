@@ -1,0 +1,64 @@
+{% load widget_tweaks %}
+{% load chess_engine_extras %}
+
+<div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">More</h4>
+</div>
+<div class="modal-body">
+    <nav class="navbar navbar-inverse navbar-fixed">
+        <ul class="nav navbar-nav">
+            <li class="active" style="width:280px;"><a href="#welcome" data-toggle="tab" style="text-align:center; font-size:24px">Home</a></li>
+            <li style="width:280px;"><a href="#help" data-toggle="tab" style="text-align:center; font-size:24px">Help</a></li>
+            <li style="width:280px;"><a href="#news" data-toggle="tab" style="text-align:center; font-size:24px">News</a></li>
+        </ul>
+    </nav>
+    <div class="tab-content">
+        <div class="tab-pane fade active in" id="welcome">
+            <p align="center" style="font-size: 30px;">
+                Welcome to <strong style="color:#EA7500">Go-Online</strong> !<br />
+            </p>
+        </div>
+        <div class="tab-pane fade" id="help" style="font-size: 18px;">
+            <p>Click <strong style="color:#007979"><i>Create game</i></strong> button in the lobby page to create a new game.<br />
+                Everybody can create a game, without any limitation.
+            </p>
+            <ul>
+                <li><b style="color:#007979">Game name</b> : mandatory. Must not exceed 200 caracters</li>
+                <li><b style="color:#007979">Winning games</b> : Number of winning rounds required to win the match</li>
+                <li><b style="color:#007979">Play as</b> : Choose your side. You can also select
+                    <strong style="color:#007979"><i>Do not play</i></strong> to create a game without playing a side</li>
+                <li><b style="color:#007979">Public</b> : Game will be visible for all players</li>
+                <li><b style="color:#007979">Ranked</b> : Game result will influence players Elo</li>
+            </ul>
+            <p>If you want to play a chess game, you need to participate to a game.<br />
+                To participate to a game, you can :
+            </p>
+            <ul>
+                <li><strong style="color:#007979"><i>Create</i></strong> a new game and
+                    <strong style="color:#007979"><i>select</i></strong> your side in creation form</li>
+                <li><strong style="color:#007979"><i>Join</i></strong> a existing game</li>
+            </ul>
+            <div class="alert alert-warning">
+                <ul>
+                    <li>You can join games only if a side is free</li>
+                </ul>
+            </div>
+            <p>Profile page shows player informations :</p>
+            Click <strong style="color:#007979"><i>Change password</i></strong> to modify player password.<br />
+        </div>
+        <div class="tab-pane fade" id="news">
+            <p align="center" style="font-size: 30px;"><strong style="color:#EA7500"><i>News</i></strong><br /><br /></p>
+            <ul>
+                {% for new in news %}
+                <li><p style="font-size: 20px;">{{new.data}}<br/></p>
+                <p style="font-size: 18px; text-align: right">——{{new.time}}</p></li>
+                {% endfor %}
+            </ul><br /><br />
+            <p style="text-align: center;">...</p>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
