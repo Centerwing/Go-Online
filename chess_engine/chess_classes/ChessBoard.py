@@ -157,7 +157,7 @@ class Board:
 
     def is_dead(self, dead_list, current_side, x, y):
         # if the boundary cell is free
-        #print("is_dead  x:%s, y:%s, dead_list: %s" % (x, y, dead_list))
+        # print("is_dead  x:%s, y:%s, dead_list: %s" % (x, y, dead_list))
         for i in [-1, 1]:
             x_ = offset(x, i)
             y_ = offset(y, i)
@@ -170,7 +170,7 @@ class Board:
                     return False
 
         # the boundary cell is not free
-        #print("boundary cell not free")
+        # print("boundary cell not free")
         if offset(x, 1) is not False \
                 and ([offset(x, 1), y] not in dead_list) and self.grid[y][offset(x, 1)].side.name == current_side:
             temp_list = self.is_dead(dead_list+[[offset(x, 1), y]], current_side, offset(x, 1), y)

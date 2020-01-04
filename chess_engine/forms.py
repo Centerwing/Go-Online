@@ -9,7 +9,7 @@ class CreateChessGameForm(forms.Form):
         self.request = kwargs.pop('request')
         super(CreateChessGameForm, self).__init__(*args, **kwargs)
         self.fields['winning_games'].choices = [('1', '1'), ('2', '2'), ('3', '3')]
-        self.fields['play_as'].choices = [('white', 'White'), ('black', 'Black'),
+        self.fields['play_as'].choices = [('white', 'White'), ('black', 'Black'), ('exercise', 'Exercises'),
                                           ('vs_ai', 'Vs AI'), ('do_not_play', 'Do not play')]
 
     name = forms.CharField(label='Game name', max_length=200,
@@ -34,14 +34,23 @@ class CreateChessGameForm(forms.Form):
             game.set_data('game_options/public', public)
             game.set_data('game_options/ranked', ranked)
             game.set_data('game_options/creator', self.request.user.id)
+
             if play_as == 'white' or play_as == 'black':
                 game.set_data('participants/%s/1' % play_as, self.request.user.id)
+
+            if play_as == 'exercise':
+                game.set_data('participants/black/1', self.request.user.id)
+                game.set_data('participants/white/1', self.request.user.id)
+                game.set_data('game_options/exercise', True)
+            else:
+                game.set_data('game_options/exercise', False)
+
             if play_as == 'vs_ai':
                 game.set_data('participants/black/1', self.request.user.id)
                 game.set_data('participants/white/1', '100')
-                game.set_data('game_option/ai', 'True')
+                game.set_data('game_options/ai', True)
             else:
-                game.set_data('game_option/ai', 'False')
+                game.set_data('game_options/ai', False)
 
             game.save()
 
@@ -49,5 +58,5 @@ class CreateChessGameForm(forms.Form):
             game_logic.initialize(give_hand_to='black')
 
         except Exception as e:
-            return False, 'Game creation error : %s' % e.message
+            return False, 'Game creation error : %s' % e
         return True, game

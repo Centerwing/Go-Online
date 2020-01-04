@@ -1,6 +1,7 @@
 
 from chess_engine.chess_classes import ChessBoard, ChessPiece
 from chess_engine.chess_classes.simple_ai import core, parser
+from chess_engine.chess_classes.ChessExercises import get_exercise_board
 from utils import utils
 from chess_engine.models import *
 
@@ -30,6 +31,9 @@ class ChessGame:
         self.game_data.set_data('token/step/side', give_hand_to)
         self.game_data.set_data('token/step/last_pass', 'no')
         self.game_data.set_data('token/step/data/impossible_move', '-')
+
+        if self.game_data.get_data('game_options/exercise'):
+            self.load_exercise_board()
 
         return self.game_data
 
@@ -93,7 +97,7 @@ class ChessGame:
         self._finalize_turn(move_data)
 
         # ai move
-        if self.game_data.get_data('game_option/ai') == 'True':
+        if self.game_data.get_data('game_options/ai'):
             self._ai_move(move_data)
 
         return True
@@ -127,7 +131,7 @@ class ChessGame:
         self._finalize_turn(move_data)
 
         # ai move
-        if self.game_data.get_data('game_option/ai') == 'True':
+        if self.game_data.get_data('game_options/ai'):
             self._ai_move(move_data)
 
         return True
@@ -334,6 +338,20 @@ class ChessGame:
             self.game_data.set_data('token/step/side', 'white')
 
         self.game_data.add_log(move_data)
+
+    def load_exercise_board(self):
+        grids = get_exercise_board(self.board)
+
+        index = 1
+        for grid in grids:
+            saved_game = {
+                'comment': 'Exercises '+str(index),
+                'board': grid,
+                'token': self.game_data.get_data('token')
+            }
+            saved_index = '%03d.' % index
+            self.game_data.set_data('saved_games/%s' % saved_index, saved_game)
+            index += 1
 
     def _ai_move(self, move_data):
         """

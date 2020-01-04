@@ -68,6 +68,7 @@
 
                 {% if user_can_play or user_is_creator %}
                 <div id="panel_buttons" style="margin-top: 7px;">
+                    {% if not game_data.game_options.exercise %}
                     <ul class="list-inline">
                         {% if user_can_play %}
                         <li><a id="button_surrender_checkmate" class="btn btn-danger" href="{% url 'menu-action' pk=game.id action='surrender_checkmate' name='_' value=game_data.token.step.side %}"><span class="glyphicon glyphicon-king"></span> Surrender </a></li>
@@ -78,13 +79,16 @@
                         <li><a id="button_reset_game" class="btn btn-warning" href="{% url 'menu-action' pk=game.id action='reset_game' name='_' value=game_data.token.step.side %}"><span class="glyphicon glyphicon-remove-sign"></span> Reset game</a></li>
                         {% endif %}
                     </ul>
+                    {% endif %}
                     {% if user_can_play %}
                     <ul class="list-inline">
+                        {% if not game_data.game_options.exercise %}
                         <li>
                             <a data-toggle="modal" data-target="#SaveGameModal" data-keyboard="false" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-floppy-save"></span> Save board
                             </a>
                         </li>
+                        {% endif %}
                         {% if not game_data.game_options.ranked %}
                             {% if game_data.saved_games|length > 0 %}
                                 <li class="dropdown">
@@ -113,24 +117,6 @@
                         {% endif %}
                     </ul>
                     {% endif %}
-                    <ul class="list-inline">
-                        {% if game_data.game_options.logging == 'on' %}
-                            {% if user_can_play %}
-                                <li><a href="{% url 'menu-action' pk=game.id action='update_option' name='logging' value='off' %}" class="btn btn-warning"><span class="glyphicon glyphicon-copy"></span> Disable logging</a></li>
-                            {% else %}
-                                <li><a class="btn btn-default disabled"><span class="glyphicon glyphicon-copy"></span> Logging enabled</a></li>
-                            {% endif %}
-                            {% if not game_data.game_options.ranked and user_can_play %}
-                                <li><a href="{% url 'menu-action' pk=game.id action='load_previous_log' name='_' value='_' %}" class="btn btn-primary"><span class="glyphicon glyphicon-step-backward"></span> Previous</a></li>
-                            {% endif %}
-                        {% else %}
-                            {% if user_can_play %}
-                                <li><a href="{% url 'menu-action' pk=game.id action='update_option' name='logging' value='on' %}" class="btn btn-primary"><span class="glyphicon glyphicon-copy"></span> Enable logging</a></li>
-                            {% else %}
-                                <li><a class="btn btn-default disabled"><span class="glyphicon glyphicon-copy"></span> Logging disabled</a></li>
-                            {% endif %}
-                        {% endif %}
-                    </ul>
                     {% if user_can_play %}
                     <div id="SaveGameModal" class="modal fade" role="dialog">
                         <form href="{% url 'menu-action' pk=game.id action='save_board' name='a' value='a' %}" role="form">

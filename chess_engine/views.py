@@ -425,7 +425,7 @@ class MenuView(View):
             log_index = kwargs['value']
             self._restore_log(source='saved_games', log_index=log_index, game_logic=game_logic)
         else:
-            print ('unknown action : %s' % action)
+            print('unknown action : %s' % action)
 
         return HttpResponseRedirect(reverse('chess-game', kwargs={'pk': game_id}))
 
