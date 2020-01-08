@@ -6,7 +6,6 @@ import yaml
 from django.db import models
 from django.contrib.auth.models import User
 
-from chess_engine.chess_classes import ChessUtils
 from utils import utils
 from django_chess import config
 
@@ -77,7 +76,8 @@ class PersistentObject (models.Model):
 class GamePersistentData (PersistentObject):
     def add_log(self, move_data):
         side = move_data['current_side']
-        official = ChessUtils.build_official_move(move_data)
+        res_target_coords = '%s_%s' % (move_data['dest_x'], move_data['dest_y'])
+        official = '{target_coords}'.format(target_coords=res_target_coords)
         log_data = {
             'side': side,
             'official': official,

@@ -1,13 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
 
-class PieceRole:
-    def __init__(self, name, label, weight):
-        self.name = name
-        self.label = label
-        self.weight = weight
-
-
 class Piece(object):
     __metaclass__ = ABCMeta
 

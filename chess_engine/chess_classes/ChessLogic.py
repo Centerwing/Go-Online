@@ -184,38 +184,10 @@ class ChessGame:
             print('give hand to next side : %s' % next_side)
             self.initialize(give_hand_to=next_side)
 
-    def declare_withdraw(self):
-        print('ChessLogic.declare_withdraw')
-        self.game_data.set_data('token/step/name', 'withdraw')
-        self.game_data.set_data('token/result', 'checkmate')
-
-        self._save_game('withdraw')
-        if self._winning_games_gap_reached():
-            print('_winning_games_gap_reached')
-            pass
-        else:
-            next_side = 'black' if self.game_data.get_data('token/step/side') == 'white' else 'white'
-            self.initialize(give_hand_to=next_side)
-
-    def declare_draw(self):
-        print('ChessLogic.declare_draw')
-        # todo
-
-    def accept_revanche(self, user):
-        pass
-
-    def accept_belle(self, user):
-        pass
-
     def quit_game(self, user):
         pass
 
     """ private mechanics tools """
-
-    def _initialize_castle_data(self):
-        rookable_data = ['r1', 'r2']
-        self.game_data.set_data('token/step/castle/white', rookable_data)
-        self.game_data.set_data('token/step/castle/black', rookable_data)
 
     def _winning_games_gap_reached(self):
         # check if number of required winning games is reached
@@ -339,7 +311,7 @@ class ChessGame:
 
         self.game_data.add_log(move_data)
 
-    def load_exercise_board(self):
+    def _load_exercise_board(self):
         grids = get_exercise_board(self.board)
 
         index = 1
