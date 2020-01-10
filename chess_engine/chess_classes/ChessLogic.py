@@ -26,14 +26,13 @@ class ChessGame:
             self.game_data = GamePersistentData()
             self.game_id = self.game_data.id
 
-        self._initialize_castle_data()
         self.game_data.set_data('token/step/name', 'waitCellSource')
         self.game_data.set_data('token/step/side', give_hand_to)
         self.game_data.set_data('token/step/last_pass', 'no')
         self.game_data.set_data('token/step/data/impossible_move', '-')
 
         if self.game_data.get_data('game_options/exercise'):
-            self.load_exercise_board()
+            self._load_exercise_board()
 
         return self.game_data
 
