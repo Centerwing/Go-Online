@@ -1,5 +1,5 @@
 cffi==1.13.2
-cryptography==2.8
+cryptography==3.2
 Django==1.9
 django-widget-tweaks==1.4.1
 json2html==1.2.1
